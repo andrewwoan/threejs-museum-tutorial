@@ -9,4 +9,9 @@ export default [
         type: "texture",
         path: "/textures/fullBake.jpg",
     },
+    {
+        name: "nature",
+        type: "texture",
+        path: "/textures/image.jpg",
+    },
 ];

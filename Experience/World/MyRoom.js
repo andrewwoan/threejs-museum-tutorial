@@ -21,23 +21,36 @@ export default class MyRoom {
 
     setModel() {
         this.model = this.resource.scene;
-        console.log(this.resource);
         this.material = this.resources.items.myRoomBake;
         this.material.flipY = false;
         this.material.encoding = THREE.sRGBEncoding;
 
+        console.log(this.resources.items);
         console.log(this.model.children);
 
-        this.resource.scene.traverse((child) => {
-            if (child instanceof THREE.Mesh) {
-                child.material = new THREE.MeshBasicMaterial({
-                    map: this.material,
-                });
-            }
+        const planeImage = this.model.children.find(
+            (child) => child.name === "front"
+        );
+
+        this.resources.items.nature.flipY = false;
+
+        planeImage.material = new THREE.MeshBasicMaterial({
+            map: this.resources.items.nature,
         });
 
-        // console.log(this.model);
+        const size = 100;
+        const divisions = 100;
+
+        const gridHelper = new THREE.GridHelper(size, divisions);
+
+        const axesHelper = new THREE.AxesHelper(100);
+        this.experience.scene.add(axesHelper);
+
+        this.experience.scene.add(gridHelper);
+
+        console.log(planeImage.material);
 
         this.scene.add(this.model);
+        console.log(this.model);
     }
 }
