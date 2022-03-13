@@ -45,10 +45,9 @@ export default class MyRoom {
 
         const axesHelper = new THREE.AxesHelper(100);
         this.experience.scene.add(axesHelper);
-
+        console.log(this.model);
         this.experience.scene.add(gridHelper);
 
         this.scene.add(this.model);
-        console.log(this.model);
     }
 }

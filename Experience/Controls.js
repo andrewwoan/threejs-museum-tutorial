@@ -12,11 +12,12 @@ export default class Controls extends EventEmitter {
         this.canvas = this.experience.canvas;
         this.camera = this.experience.camera;
         this.position = 0;
+        this.speed = 0.05;
 
         this.lerp = {
             current: 0,
             target: 0,
-            factor: 0.01,
+            factor: 0.08,
         };
 
         this.pathTarget = new THREE.Vector3(0, 0, 0);
@@ -30,32 +31,82 @@ export default class Controls extends EventEmitter {
 
     setControls() {
         // Set camera Path
-        this.curve = new THREE.CubicBezierCurve3(
-            new THREE.Vector3(-10, 1, 0),
-            new THREE.Vector3(-5, 1, 0),
-            new THREE.Vector3(5, 1, 0),
-            new THREE.Vector3(10, 1, 0)
-        );
+        this.curve = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(-10, 1, 10),
+            new THREE.Vector3(-5, 1, 5),
+            new THREE.Vector3(0, 1, 0),
+            new THREE.Vector3(5, 1, 5),
+            new THREE.Vector3(10, 1, 10),
+        ]);
+
+        this.curve.closed = true;
+
         this.points = this.curve.getPoints(50);
         this.geometry = new THREE.BufferGeometry().setFromPoints(this.points);
 
-        window.addEventListener("wheel", () => {
-            console.log("Scrolled");
-            this.lerp.target += 0.05;
-        });
-
         // Debugging Lines
-        // this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
-        // this.curveObject = new THREE.Line(this.geometry, this.material);
+        this.material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+        this.curveObject = new THREE.Line(this.geometry, this.material);
         // this.scene.add(this.curveObject);
+
+        window.addEventListener("wheel", this.onWheel);
+
+        window.addEventListener("pointerdown", this.onPointerDown);
+        window.addEventListener("pointercancel", this.onPointerCancel);
     }
 
-    update() {
-        this.lerpFunc(this.lerp.current, this.lerp.target, this.lerp.factor);
+    onWheel = (event) => {
+        console.log(event);
 
-        // console.log(this.camera.camera.position);
-        // console.log(this.time.elapsedTime);
-        // console.log(this.pathTarget.x - (this.pathTarget.x - 0.2));
+        if (event.deltaY > 0) {
+            this.lerp.target += this.speed;
+        } else {
+            this.lerp.target -= this.speed;
+        }
+    };
+
+    // if (event.deltaY > 0) {
+    //     this.lerp.target += this.speed;
+    // } else if (this.lerp.target - this.speed > 0) {
+    //     this.lerp.target -= this.speed;
+    // } else {
+    //     console.log("u can't scroll back");
+    // }
+    // };
+
+    onPointerDown = (event) => {
+        window.addEventListener("pointermove", this.onPointerMove);
+        window.addEventListener("pointerup", this.onPointerUp);
+        console.log("Pointer Down");
+    };
+
+    onPointerMove = (event) => {
+        // console.log("Pointer Move");
+        // console.log(event.clientX);
+        console.log(event.movementX);
+        if (event.movementX < 0) {
+            this.lerp.target += this.speed * 0.009;
+        } else {
+            this.lerp.target -= this.speed * 0.009;
+        }
+    };
+
+    onPointerUp = (event) => {
+        console.log("Pointer Up");
+        // removePointer(event);
+        window.removeEventListener("pointermove", this.onPointerMove);
+        window.removeEventListener("pointerup", this.onPointerUp);
+    };
+
+    // onPointerCancel(event) {
+    //     removePointer(event);
+    // }
+
+    update() {
+        // // console.log(this.camera.camera.position);
+        // // console.log(this.time.elapsedTime);
+        // // console.log(this.pathTarget.x - (this.pathTarget.x - 0.2));
+        this.lerpFunc(this.lerp.current, this.lerp.target, this.lerp.factor);
         this.curve.getPoint(this.lerp.current % 1.0, this.pathTarget);
         this.camera.camera.position.copy(this.pathTarget);
     }
