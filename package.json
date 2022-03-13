@@ -1,0 +1,17 @@
+{
+  "name": "boilerplate",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^2.8.0"
+  },
+  "dependencies": {
+    "lil-gui": "^0.16.1",
+    "three": "^0.138.3"
+  }
+}
