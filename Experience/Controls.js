@@ -85,9 +85,9 @@ export default class Controls extends EventEmitter {
         // console.log(event.clientX);
         console.log(event.movementX);
         if (event.movementX < 0) {
-            this.lerp.target += this.speed * 0.009;
+            this.lerp.target += this.speed * 0.03;
         } else {
-            this.lerp.target -= this.speed * 0.009;
+            this.lerp.target -= this.speed * 0.03;
         }
     };
 
