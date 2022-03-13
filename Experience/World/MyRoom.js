@@ -25,8 +25,8 @@ export default class MyRoom {
         this.material.flipY = false;
         this.material.encoding = THREE.sRGBEncoding;
 
-        console.log(this.resources.items);
-        console.log(this.model.children);
+        // console.log(this.resources.items);
+        // console.log(this.model.children);
 
         const planeImage = this.model.children.find(
             (child) => child.name === "front"
@@ -47,8 +47,6 @@ export default class MyRoom {
         this.experience.scene.add(axesHelper);
 
         this.experience.scene.add(gridHelper);
-
-        console.log(planeImage.material);
 
         this.scene.add(this.model);
         console.log(this.model);
