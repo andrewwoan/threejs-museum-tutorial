@@ -75,19 +75,23 @@ export default class Controls extends EventEmitter {
     // };
 
     onPointerDown = (event) => {
+        console.log(event.pointerType);
         window.addEventListener("pointermove", this.onPointerMove);
         window.addEventListener("pointerup", this.onPointerUp);
-        console.log("Pointer Down");
+        // console.log("Pointer Down");
+        if (event.target.hasPointerCapture(event.pointerId)) {
+            event.target.releasePointerCapture(event.pointerId);
+        }
     };
 
     onPointerMove = (event) => {
-        // console.log("Pointer Move");
+        console.log("Pointer Move");
         // console.log(event.clientX);
-        console.log(event.movementX);
+        // console.log(event.movementX);
         if (event.movementX < 0) {
-            this.lerp.target += this.speed * 0.03;
+            this.lerp.target += this.speed * 0.02;
         } else {
-            this.lerp.target -= this.speed * 0.03;
+            this.lerp.target -= this.speed * 0.02;
         }
     };
 
