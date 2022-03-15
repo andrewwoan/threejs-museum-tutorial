@@ -49,10 +49,10 @@ export default class Controls extends EventEmitter {
         this.curveObject = new THREE.Line(this.geometry, this.material);
         // this.scene.add(this.curveObject);
 
-        window.addEventListener("wheel", this.onWheel);
+        // window.addEventListener("wheel", this.onWheel);
 
-        window.addEventListener("pointerdown", this.onPointerDown);
-        window.addEventListener("pointercancel", this.onPointerCancel);
+        // window.addEventListener("pointerdown", this.onPointerDown);
+        // window.addEventListener("pointercancel", this.onPointerCancel);
     }
 
     onWheel = (event) => {
@@ -110,9 +110,9 @@ export default class Controls extends EventEmitter {
         // // console.log(this.camera.camera.position);
         // // console.log(this.time.elapsedTime);
         // // console.log(this.pathTarget.x - (this.pathTarget.x - 0.2));
-        this.lerpFunc(this.lerp.current, this.lerp.target, this.lerp.factor);
-        this.curve.getPoint(this.lerp.current % 1.0, this.pathTarget);
-        this.camera.camera.position.copy(this.pathTarget);
+        // this.lerpFunc(this.lerp.current, this.lerp.target, this.lerp.factor);
+        // this.curve.getPoint(this.lerp.current % 1.0, this.pathTarget);
+        // this.camera.camera.position.copy(this.pathTarget);
     }
 
     destroy() {}

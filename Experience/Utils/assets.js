@@ -2,7 +2,7 @@ export default [
     {
         name: "myRoomModel",
         type: "glbModel",
-        path: "/models/MyRoom.glb",
+        path: "/models/Museum.glb",
     },
     {
         name: "myRoomBake",
