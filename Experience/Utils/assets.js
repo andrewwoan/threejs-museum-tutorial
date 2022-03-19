@@ -7,11 +7,11 @@ export default [
     {
         name: "myRoomBake",
         type: "texture",
-        path: "/textures/fullBake.jpg",
+        path: "/textures/lezgo.png",
     },
     {
-        name: "nature",
+        name: "test",
         type: "texture",
-        path: "/textures/image.jpg",
+        path: "/textures/ClothesSketches.jpg",
     },
 ];

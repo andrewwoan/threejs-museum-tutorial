@@ -28,14 +28,23 @@ export default class MyRoom {
         // console.log(this.resources.items);
         // console.log(this.model.children);
 
-        const planeImage = this.model.children.find((child) => {
-            child.material = new THREE.MeshBasicMaterial({
-                color: 0x9e8f8f,
+        console.log;
+
+        this.model.children.find((child) => {
+            child.material = new THREE.MeshBasicMaterial({ 
+                map: this.material,
             });
             console.log(child);
         });
 
-        this.resources.items.nature.flipY = false;
+        this.test = this.resources.items.test;
+
+        // const imageTest = this.model.children.find(
+        //     (child) => child.name === "Plane001"
+        // );
+        // imageTest.material = new THREE.MeshBasicMaterial({
+        //     map: this.test,
+        // });
 
         const size = 100;
         const divisions = 100;
